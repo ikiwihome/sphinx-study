@@ -6,7 +6,7 @@
 SPHINXOPTS    ?=
 SPHINXBUILD   ?= sphinx-build
 SOURCEDIR     = source
-BUILDDIR      = build
+BUILDDIR      = _build
 
 # Put it first so that "make" without argument is like "make help".
 help:
@@ -18,3 +18,17 @@ help:
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
 %: Makefile
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+
+pdf:
+	@$(SPHINXBUILD) -M latex "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+	cd $(BUILDDIR)/latex && \
+	latexmk -r latexmkrc -pdf -f -dvi- -ps- -interaction=nonstopmode -quiet -outdir=../pdf
+
+all:
+	@$(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+	@$(SPHINXBUILD) -M latex "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+	cd $(BUILDDIR)/latex && \
+	latexmk -r latexmkrc -pdf -f -dvi- -ps- -interaction=nonstopmode -quiet -outdir=../pdf
+
+clean:
+	rm -rf $(BUILDDIR)

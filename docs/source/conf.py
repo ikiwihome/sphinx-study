@@ -63,9 +63,6 @@ source_suffix = {
     '.txt': 'markdown',
 }
 
-# Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
-
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
@@ -107,14 +104,14 @@ html_show_sourcelink = False
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_static_path = ['_static', '../_static']
 
 html_js_files = ['debug.js']
 
 html_css_files = ['style.css']
 
 # Use custom CSS configs
-templates_path = ['_templates']
+templates_path = ['_templates', '../_templates']
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -122,16 +119,16 @@ templates_path = ['_templates']
 
 # The name of an image file (relative to this directory) to place at the bottom of
 # the title page.
-latex_logo = os.path.join('_static', 'evas-logo.pdf')
+latex_logo = os.path.join('../latex_templates', 'evas-logo.pdf')
 latex_engine = 'xelatex'
 latex_use_xindy = False
 
 preamble = ''
-with open(os.path.join('../latex', 'preamble.tex')) as f:
+with open(os.path.join('../latex_templates', 'preamble.tex')) as f:
     preamble = f.read()
 
 titlepage = ''
-with open(os.path.join('../latex', 'titlepage.tex')) as f:
+with open(os.path.join('../latex_templates', 'titlepage.tex')) as f:
     titlepage = f.read()
 
 latex_elements = {
@@ -237,4 +234,4 @@ epub_exclude_files = ['search.html']
 def setup(app):
     # The name of an image file (relative to this directory) to place at the top
     # of the sidebar.
-    app.config.html_logo = os.path.join('_static', 'evas-logo.svg')
+    app.config.html_logo = os.path.join('../_static', 'evas-logo.svg')
