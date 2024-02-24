@@ -33,9 +33,10 @@ goto end
 
 :pdf
 %SPHINXBUILD% -M latex %SOURCEDIR% %BUILDDIR% %SPHINXOPTS% %O%
+echo PDF 文件保存在 _build\pdf 目录
 
 cd %BUILDDIR%\latex
-latexmk -r latexmkrc -pdf -f -dvi- -ps- -interaction=nonstopmode -quiet -outdir=..\pdf
+latexmk -r latexmkrc -pdf -f -dvi- -ps- -interaction=nonstopmode -quiet -dependents- -outdir=..\pdf
 goto end
 
 :all

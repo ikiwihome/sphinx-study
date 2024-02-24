@@ -14,12 +14,3 @@ Sphinx和reStructureText手册
    reStructureText_syntax
    reference
    pygments_intro
-
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

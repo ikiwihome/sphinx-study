@@ -121,7 +121,6 @@ templates_path = ['_templates', '../_templates']
 # the title page.
 latex_logo = os.path.join('../latex_templates', 'evas-logo.pdf')
 latex_engine = 'xelatex'
-latex_use_xindy = False
 
 preamble = ''
 with open(os.path.join('../latex_templates', 'preamble.tex')) as f:
