@@ -122,6 +122,23 @@ templates_path = ['_templates', '../_templates']
 latex_logo = os.path.join('../latex_templates', 'evas-logo.pdf')
 latex_engine = 'xelatex'
 
+latex_additional_files = [
+    os.path.join('../latex_templates/fonts', 'DejaVuSans.ttf'),
+    os.path.join('../latex_templates/fonts', 'SourceHanSansSC-Regular.otf')
+    ]
+
+fontpkg = r'''
+\usepackage[UTF8]{ctex}
+
+\setCJKmainfont{SourceHanSansSC-Regular.otf}[AutoFakeBold,AutoFakeSlant]
+\setCJKsansfont{SourceHanSansSC-Regular.otf}[AutoFakeBold,AutoFakeSlant]
+\setCJKmonofont{SourceHanSansSC-Regular.otf}[AutoFakeBold,AutoFakeSlant]
+
+\setmainfont{DejaVuSans.ttf}[AutoFakeBold,AutoFakeSlant]
+\setsansfont{DejaVuSans.ttf}[AutoFakeBold,AutoFakeSlant]
+\setmonofont{DejaVuSans.ttf}[AutoFakeBold,AutoFakeSlant]
+'''
+
 preamble = ''
 with open(os.path.join('../latex_templates', 'preamble.tex')) as f:
     preamble = f.read()
@@ -145,6 +162,8 @@ latex_elements = {
     # Additional stuff for the LaTeX preamble.
     'fncychap': '\\usepackage[Sonny]{fncychap}',
 
+    'fontpkg':  fontpkg,
+
     'preamble': preamble,
 
     'maketitle': titlepage,
@@ -157,6 +176,8 @@ latex_elements = {
 
     'releasename': release,
 }
+
+latex_use_xindy = True
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,

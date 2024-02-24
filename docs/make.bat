@@ -5,12 +5,12 @@ pushd %~dp0
 REM Command file for Sphinx documentation
 
 if "%SPHINXBUILD%" == "" (
-	set SPHINXBUILD=sphinx-build
+	set SPHINXBUILD=..\env\python\sphinx-build
 )
 set SOURCEDIR=source
 set BUILDDIR=_build
 
-if "%1" == "" goto help
+if "%1" == "" goto all
 if "%1" == "pdf" goto pdf
 if "%1" == "all" goto all
 if "%1" == "clean" goto clean
@@ -33,10 +33,9 @@ goto end
 
 :pdf
 %SPHINXBUILD% -M latex %SOURCEDIR% %BUILDDIR% %SPHINXOPTS% %O%
-echo PDF 文件保存在 _build\pdf 目录
-
 cd %BUILDDIR%\latex
-latexmk -r latexmkrc -pdf -f -dvi- -ps- -interaction=nonstopmode -quiet -dependents- -outdir=..\pdf
+cmd /c latexmk -r latexmkrc -pdf -f -dvi- -ps- -interaction=nonstopmode -quiet -dependents- -outdir=..\pdf
+echo PDF 文件保存在 _build\pdf 目录
 goto end
 
 :all
@@ -44,7 +43,14 @@ goto end
 goto pdf
 
 :clean
-rmdir /s /q %BUILDDIR%
+if exist "%BUILDDIR%" (
+    rmdir /s /q %BUILDDIR%
+	echo 已清空 %BUILDDIR% 构建目录
+) else (
+    echo %BUILDDIR% 构建目录不存在，使用make命令构建
+)
+
+
 goto end
 
 :help

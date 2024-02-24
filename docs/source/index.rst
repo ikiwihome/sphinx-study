@@ -9,6 +9,7 @@ Sphinx和reStructureText手册
    :caption: 全部章节目录
    :numbered:
 
+   README
    sphinx_intro
    sphinx_conf
    reStructureText_syntax

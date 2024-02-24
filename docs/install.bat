@@ -1,7 +1,10 @@
 @echo off
+set "zip_file=..\env\python.zip"
+set "destination=..\env"
 
-python -m pip install -r requirements.txt
+if not exist "%destination%" mkdir "%destination%"
+powershell Expand-Archive -Path "%zip_file%" -DestinationPath "%destination%"
 
-echo ******************依赖的python库已安装完毕******************
+echo ******************python环境已准备完毕******************
 
 pause
