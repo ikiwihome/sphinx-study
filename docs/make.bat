@@ -33,6 +33,7 @@ goto end
 
 :pdf
 %SPHINXBUILD% -M latex %SOURCEDIR% %BUILDDIR% %SPHINXOPTS% %O%
+
 cd %BUILDDIR%\latex
 cmd /c latexmk -r latexmkrc -pdf -f -dvi- -ps- -interaction=nonstopmode -quiet -dependents- -outdir=..\pdf
 echo PDF 文件保存在 _build\pdf 目录
@@ -49,8 +50,6 @@ if exist "%BUILDDIR%" (
 ) else (
     echo %BUILDDIR% 构建目录不存在，使用make命令构建
 )
-
-
 goto end
 
 :help

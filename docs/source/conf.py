@@ -24,9 +24,13 @@ from datetime import datetime
 # language = 'en'
 language = 'zh_CN'
 
+# project is also the title of the docs
 project = 'Sphinx和reStructureText手册'
 slug = re.sub(r'\W+', '-', project.lower())
 currentYear = datetime.now().year
+
+# subtitle is displayed in pdf cover page
+subtitle = u'学习专用'
 
 if language == 'zh_CN':
     author = u'奕行智能科技有限公司'
@@ -35,9 +39,11 @@ else:
 
 copyright = '2022-' + str(currentYear) + ', ' + author
 
-# The full version, including alpha/beta/rc tags
-release = 'V1.0'
-version = release
+# the release tag is displayed in pdf bottom right area
+release = 'V2.0'
+
+# the version tag is displayed in html top left area
+version = 'V2.0'
 
 # -- General configuration ---------------------------------------------------
 
@@ -79,6 +85,9 @@ master_doc = 'index'
 html_theme = 'sphinx_rtd_theme'
 # Set link name generated in the top bar.
 html_title = project
+
+html_logo = os.path.join('../_static', 'evas-logo.svg')
+
 # Specify a base_url used to generate sitemap.xml. If not
 # specified, then no sitemap will be built.
 # base_url = 'https://cocoyi.online/'
@@ -122,6 +131,8 @@ templates_path = ['_templates', '../_templates']
 latex_logo = os.path.join('../latex_templates', 'evas-logo.pdf')
 latex_engine = 'xelatex'
 
+latex_theme_path = [os.path.abspath('../latex_templates')]
+
 latex_additional_files = [
     os.path.join('../latex_templates/fonts', 'DejaVuSans.ttf'),
     os.path.join('../latex_templates/fonts', 'SourceHanSansSC-Regular.otf')
@@ -149,10 +160,10 @@ with open(os.path.join('../latex_templates', 'titlepage.tex')) as f:
 
 latex_elements = {
     'latex_engine': 'xelatex',
-    
+
     'papersize': 'a4paper',
 
-    'geometry': '\\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}',
+    'geometry': '\\usepackage{geometry}',
 
     # Latex figure (float) alignment
     'figure_align': 'htbp',
@@ -167,6 +178,10 @@ latex_elements = {
     'preamble': preamble,
 
     'maketitle': titlepage,
+
+    # change pagestyle back to normal to avoid toc display differnet style with main page
+    'tableofcontents': r'''\pagestyle{normal}
+\sphinxtableofcontents''',
 
     'title': project,
 
@@ -250,8 +265,23 @@ epub_title = project
 epub_exclude_files = ['search.html']
 
 
-
 def setup(app):
-    # The name of an image file (relative to this directory) to place at the top
-    # of the sidebar.
-    app.config.html_logo = os.path.join('../_static', 'evas-logo.svg')
+
+    # This script is used to import subtitle to evas.sty, then copy to output directory
+    # the builder_name is split from the output directory path
+    # since "read the docs" server use pdf as output directory, so "pdf" is also list here
+    # in other case, "latex" is enough for local windows or linux environment
+    builder_name = app.outdir.rsplit(os.sep, 1)[-1]
+    if builder_name == "pdf" or builder_name == "latex":
+        # read evas.sty from latex_templates and replace this new text
+        latex_package = ''
+        with open(os.path.join(latex_theme_path[0], 'evas.sty'), 'r') as template:
+            latex_package = template.read()
+        latex_package = latex_package.replace('<subtitle>', subtitle)
+
+        # write/overwrite into evas.sty in output directory
+        output_file = os.path.join(app.outdir, 'evas.sty')
+        # create output directory is not existed
+        os.makedirs(app.outdir, exist_ok=True)
+        with open(output_file, 'w+', encoding="utf-8") as package:
+            package.write(latex_package)

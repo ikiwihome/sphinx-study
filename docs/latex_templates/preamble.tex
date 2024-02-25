@@ -1,3 +1,10 @@
+%%
+%%
+%% Start of EVAS pdf style preamble configuration (preamble.tex)
+%%
+%%
+\usepackage{evas}
+
 \setcounter{secnumdepth}{2}
 \setcounter{tocdepth}{2}
 
@@ -10,11 +17,9 @@
 \usepackage{color}
 \usepackage{transparent}
 \usepackage{eso-pic}
-\usepackage{lipsum}
 
 %%% Needed for displaying Chinese in English documentation
 \usepackage{xeCJK}
-
 
 %% spacing between line
 \usepackage{setspace}
@@ -40,15 +45,18 @@
 \pagestyle{fancy}
 \fancyhf{}
 
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+
 % Header and footer
 \makeatletter
 \def\@dotsep{2}
 \fancypagestyle{normal}{
     \fancyhf{}
-    \fancyhead[L]{\nouppercase{\leftmark}}
-    \fancyfoot[C]{\py@HeaderFamily\thepage \\ \href{https://www.evas.ai/}}
+    \fancyhead[L]{\@title}
+    \fancyhead[R]{\leftmark}
     \fancyfoot[L]{\@author}
-    \fancyfoot[R]{V1.0}
+    \fancyfoot[C]{\thepage \\ \href{https://www.evas.ai}{Submit Document Feedback}}
+    \fancyfoot[R]{\version}
     \renewcommand{\headrulewidth}{0.4pt}
     \renewcommand{\footrulewidth}{0.4pt}
 }
@@ -86,7 +94,26 @@
 % \addto\captionsenglish{\renewcommand{\chaptername}{Chapter}}
 
 
+%%%
+%%% Watermark setting
+%%%
 
+\newcommand{\watermarktext}{\fontsize{50pt}{10pt}\textcolor{black!4}{\textbf{EVAS Intelligence Confidential}}}
+
+\usepackage{tcolorbox}
+\usepackage{background}
+\SetBgContents{
+	\begin{tabular}{c}
+		\hspace{-10cm}	\watermarktext	\\
+		\vspace{6cm}	\\
+		\hspace{6cm}	\watermarktext	\\
+		\vspace{6cm}	\\
+		\hspace{-6cm}	\watermarktext
+		\vspace{6cm}	\\
+		\hspace{10cm}	\watermarktext
+	\end{tabular}\hfill}
+\SetBgScale{1}
+\SetBgAngle{45}
 
 %%reduce spacing for itemize
 \usepackage{enumitem}
@@ -108,7 +135,11 @@
 \definecolor{AllportsColor}{HTML}{000000}
 \allsectionsfont{\color{AllportsColor}}
 
+\usepackage{ctex}
 \usepackage{titlesec}
+\titleformat{\chapter}
+{\color{AllportsColor}\LARGE\bfseries}{\thechapter.}{1em}{}
+
 \titleformat{\section}
 {\color{AllportsColor}\LARGE\bfseries}{\thesection.}{1em}{}
 
@@ -126,3 +157,11 @@
 
 \titleformat{\subsubparagraph}
 {\normalfont\normalsize\bfseries}{\thesubsubparagraph}{1em}{}
+
+\assignpagestyle{\chapter}{normal}
+
+%%
+%%
+%% End of EVAS pdf style preamble configuration  (preamble.tex)
+%%
+%%

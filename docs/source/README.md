@@ -34,19 +34,23 @@
 
 ```
 
-所有的源文件都存放在 docs/source 文件夹下：
+项目采用三级文件夹结构，第一级为操作系统级环境(包含了readthedocs的构建脚本以及windows本地python环境)，第二级为项目级脚本(例如install, makefile以及html/pdf主题样式)，一般无需修改，第三级为具体文档工程的样式和内容，例如文档的配置文件 conf.py 在docs/source 文件夹下。
+
+所有的源文件都存放在 docs/source 文件夹下，用户通常只需要增删修改docs/source文件夹下的内容即可。
 
 - 配置文件为 conf.py 文件
 - 各章节目录为各个 index.rst 文件
 - 各章节页面为各个 xxx.md 文件
 
-如需修改，**请直接修改 /source 文件夹下的相应文件。**
+一级和二级目录内容不要修改，如需修改，**请直接修改 docs/source 文件夹下的相应文件。**
 
 ### 前提
 - Linux 环境：python >3.7，运行docs/install.sh安装
 - Windows 环境：双击docs文件夹下的install.bat解压python压缩包
 - 先执行```cd docs``` 命令切换到docs目录下
 - 生成pdf需要安装MikTex或者TexLive，以及Perl
+    - Miktex: https://miktex.org/download
+    - Perl: https://strawberryperl.com/
 
 ### 创建html
 

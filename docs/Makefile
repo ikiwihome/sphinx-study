@@ -21,16 +21,20 @@ help:
 
 pdf:
 	@$(SPHINXBUILD) -M latex "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+
 	cd $(BUILDDIR)/latex && \
 	latexmk -r latexmkrc -pdf -f -dvi- -ps- -interaction=nonstopmode -quiet -dependents- -outdir=../pdf
-	echo PDF 文件保存在 _build\pdf 目录
+	@echo PDF 文件保存在 $(BUILDDIR)\pdf 目录
 
 all:
 	@$(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+
 	@$(SPHINXBUILD) -M latex "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+
 	cd $(BUILDDIR)/latex && \
 	latexmk -r latexmkrc -pdf -f -dvi- -ps- -interaction=nonstopmode -quiet -dependents- -outdir=../pdf
-	echo PDF 文件保存在 _build\pdf 目录
+	@echo PDF 文件保存在 $(BUILDDIR)\pdf 目录
 
 clean:
 	rm -rf $(BUILDDIR)
+	@echo 已清空 $(BUILDDIR) 构建目录
